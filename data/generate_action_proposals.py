@@ -22,17 +22,19 @@ def parse_split(train_def, test_def, outpath, segment_size, split_suffix):
         filename = os.path.basename(path)
         return filename, frames
 
-    with open(train_def) as train_f:
-        for line in train_f:
-            video_filename, nr_frames = parse_videofile_line(line)
-            output_filename = os.path.join(train_out_dir, "%s_window_shot.txt" % video_filename)
-            segment_video(segment_size, nr_frames, output_filename)
+    def line_to_file(input_file: str, output_path: str, type: str):
+        with open(input_file) as input_f:
+            shotlist_file = os.path.join(os.path.dirname(train_def),
+                                         '{}_shot_list_split_{:02d}.txt'.format(type, split_suffix))
+            with open(shotlist_file, 'w') as shot_f:
+                for line in input_f:
+                    video_filename, nr_frames = parse_videofile_line(line)
+                    output_filename = os.path.join(output_path, "%s_window_shot.txt" % video_filename)
+                    segment_video(segment_size, nr_frames, output_filename)
+                    shot_f.write("{} {}\n".format(os.path.abspath(output_filename), nr_frames))
 
-    with open(test_def) as test_f:
-        for line in test_f:
-            video_filename, nr_frames = parse_videofile_line(line)
-            output_filename = os.path.join(test_out_dir, "%s_window_shot.txt" % video_filename)
-            segment_video(segment_size, nr_frames, output_filename)
+    line_to_file(train_def, train_out_dir, 'train')
+    line_to_file(test_def, test_out_dir, 'test')
     return
 
 
