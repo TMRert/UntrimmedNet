@@ -99,7 +99,7 @@ def main():
             return x.split('/')[-1]
 
     if args.format == 'rawframes':
-        frame_info = parse_directory(osp.join(args.db_root),
+        frame_info = parse_directory(osp.join(osp.abspath(args.db_root)),
                                      key_func=key_func,
                                      rgb_prefix=args.rgb_prefix,
                                      flow_x_prefix=args.flow_x_prefix,
@@ -117,7 +117,7 @@ def main():
             x.split('.')[0], args.db_root): (x, -1, -1) for x in video_list}
 
     split_tp = parse_splits(args.split_list_path, ',')
-    out_path = osp.join(args.out_list_path, args.dataset_name)
+    out_path = args.out_list_path
     pathlib.Path(out_path).mkdir(parents=True, exist_ok=True)
 
     for j, frame_type in enumerate(['rgb', 'flow']):
