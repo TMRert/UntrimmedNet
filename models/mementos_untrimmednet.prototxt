@@ -9,7 +9,7 @@ layer {
   top: "data"
   top: "label"
   sequence_data_param {
-    video_source: ../data/Mementos/flow_train_split_01.txt"
+    video_source: "../data/Mementos/flow_train_split_01.txt"
     shot_source: "../data/Mementos/train_shot_list_split_01.txt"
     batch_size: 7
     num_frames: 5
