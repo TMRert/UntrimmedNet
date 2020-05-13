@@ -96,7 +96,7 @@ def main():
             return '/'.join(x.split('/')[-2:])
     else:
         def key_func(x):
-            return x.split('/')[-1]
+            return osp.basename(x)
 
     if args.format == 'rawframes':
         frame_info = parse_directory(osp.join(osp.abspath(args.db_root)),
@@ -125,13 +125,15 @@ def main():
             train_items, test_items = split
             with open(osp.join(out_path, "{}_train_split_{:02d}.txt".format(frame_type, i + 1)), 'w') as train_f:
                 for train_item in train_items:
-                    entry_info = frame_info[train_item[0]]
+                    video_name = osp.basename(train_item[0])
+                    entry_info = frame_info[video_name]
                     train_entry = "%s %s %s\n" % (entry_info[0], entry_info[j + 1], train_item[1])
                     train_f.write(train_entry)
 
             with open(osp.join(out_path, "{}_test_split_{:02d}.txt".format(frame_type, i + 1)), 'w') as test_f:
                 for test_item in test_items:
-                    entry_info = frame_info[test_item[0]]
+                    video_name = osp.basename(test_item[0])
+                    entry_info = frame_info[video_name]
                     test_entry = "%s %s %s\n" % (entry_info[0], entry_info[j + 1], test_item[1])
                     test_f.write(test_entry)
 
