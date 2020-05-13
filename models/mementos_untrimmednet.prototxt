@@ -38,7 +38,7 @@ layer {
   top: "data"
   top: "label"
   video_data_param {
-    source: "../data/Mementos/train_shot_list_split_01.txt"
+    source: "../data/Mementos/flow_train_split_01.txt"
     batch_size: 1
     new_length: 5
     num_segments: 3
