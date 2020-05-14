@@ -27,7 +27,7 @@ clip_gradients: 20
 
 # GPU setting
 solver_mode: GPU
-# device_id: [0,1,2,3,4,5,6,7]
-device_id: [0]
+device_id: [0,1,2]
+# device_id: [0]
 richness: 200
 
